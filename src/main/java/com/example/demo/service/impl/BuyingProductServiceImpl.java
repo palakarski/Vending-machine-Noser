@@ -51,7 +51,8 @@ public class BuyingProductServiceImpl implements BuyingProductService {
             var amountToBeReturn = insertedSum.subtract(productToBuyPrice);
             if (amountToBeReturn.compareTo(vendingMachine.getAmountForChange()) > 0) {
                 // TODO: Implement logic to refill money from inserted coins
-                throw new UnsupportedOperationException("The machine won't give you change,so either put the right amount or call operator");
+                throw new UnsupportedOperationException(
+                    "The machine won't give you change,so either put the right amount or call operator");
             }
 
             var amountToBeReturnInCoins = calculateAmountToBeReturnInCoins(machineRepository, vendingMachine, amountToBeReturn);

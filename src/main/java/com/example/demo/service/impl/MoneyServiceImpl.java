@@ -45,7 +45,7 @@ public class MoneyServiceImpl implements MoneyService {
         incrementCoinCount(machine.getInsertedCoins(), coinEntity);
         machineRepository.save(machine);
 
-        return new InsertedMoneyResponse(machine.getInsertedSum(),convertToProductResponse(machine.getProducts()));
+        return new InsertedMoneyResponse(machine.getInsertedSum(), convertToProductResponse(machine.getProducts()));
     }
 
     @Override
@@ -60,7 +60,7 @@ public class MoneyServiceImpl implements MoneyService {
         incrementBankNoteCount(machine.getInsertedBankNotes(), bankNoteEntity);
         machineRepository.save(machine);
 
-        return new InsertedMoneyResponse(machine.getInsertedSum(),convertToProductResponse(machine.getProducts()));
+        return new InsertedMoneyResponse(machine.getInsertedSum(), convertToProductResponse(machine.getProducts()));
     }
 
     @Override
@@ -110,9 +110,9 @@ public class MoneyServiceImpl implements MoneyService {
     }
 
     private List<ProductResponse> convertToProductResponse(List<ProductEntity> productEntities) {
-       List<ProductResponse> productResponses = new ArrayList<>();
+        List<ProductResponse> productResponses = new ArrayList<>();
         for (ProductEntity productEntity : productEntities) {
-            productResponses.add(modelMapper.map(productEntity,ProductResponse.class));
+            productResponses.add(modelMapper.map(productEntity, ProductResponse.class));
         }
         return productResponses;
     }

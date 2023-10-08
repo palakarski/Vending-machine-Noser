@@ -1,6 +1,5 @@
 package com.example.demo.integration;
 
-import static com.example.demo.enumeration.ProductSlotType.ONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -8,15 +7,10 @@ import com.example.demo.controller.InsertMoneyController;
 import com.example.demo.enumeration.BankNoteValue;
 import com.example.demo.enumeration.CoinValue;
 import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.NotFoundException;
 import com.example.demo.model.dto.InsertBankNoteRequest;
 import com.example.demo.model.dto.InsertCoinRequest;
 import com.example.demo.repository.MachineRepository;
-import com.example.demo.repository.ProductRepository;
-import com.example.demo.service.MachineSupportService;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -82,7 +76,7 @@ public class InsertMoneyControllerTest extends BaseForIntegrationTests {
     @Order(4)
     void shouldReturnTheInsertedMoney() {
         var machine = machineRepository.findFirstById(1L).get();
-        assertEquals(BigDecimal.valueOf(12.50).stripTrailingZeros(),machine.getInsertedSum().stripTrailingZeros());
+        assertEquals(BigDecimal.valueOf(12.50).stripTrailingZeros(), machine.getInsertedSum().stripTrailingZeros());
         var response = insertMoneyController.returnInsertedMoney().getBody();
         machine = machineRepository.findFirstById(1L).get();
         var coinTwoLv = CoinValue.TWO_LV;
@@ -92,7 +86,6 @@ public class InsertMoneyControllerTest extends BaseForIntegrationTests {
         var expectedCoinsForChangeTwoLv = 43;
         var expectedBankNoteProfitTenLv = 1;
 
-
         var coinEntityTwoLv = machine.getCoinsForChange().keySet().stream().filter(coinEntity -> coinEntity.getType().equals(coinTwoLv))
             .findFirst().get();
         var coinEntityFiftySt = machine.getCoinsForChange().keySet().stream().filter(coinEntity -> coinEntity.getType().equals(coinFiftySt))
@@ -100,7 +93,7 @@ public class InsertMoneyControllerTest extends BaseForIntegrationTests {
         var bankNoteEntity = machine.getBankNotesProfit().keySet().stream()
             .filter(bankNoteEntity1 -> bankNoteEntity1.getType().equals(bankNote)).findFirst().get();
 
-        assertEquals(BigDecimal.ZERO,machine.getInsertedSum().stripTrailingZeros());
+        assertEquals(BigDecimal.ZERO, machine.getInsertedSum().stripTrailingZeros());
 
         assertEquals(BigDecimal.valueOf(12.50).stripTrailingZeros(), response.getInsertedSum().stripTrailingZeros());
         assertEquals(expectedBankNoteProfitTenLv, machine.getBankNotesProfit().get(bankNoteEntity));
