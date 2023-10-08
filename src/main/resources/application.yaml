@@ -1,0 +1,24 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  datasource:
+    password: ${MY_SQL_PASSWORD:root}
+    username: ${MY_SQL_USERNAME:root}
+    url: ${MY_SQL_URL:jdbc:mysql://localhost:3306/vending-machine?useLegacyDatetimeCode=false&serverTimezone=UTC}
+    driver-class-name: ${MY_SQL_DRIVER:com.mysql.cj.jdbc.Driver}
+    hikari:
+      schema: update
+  jpa:
+    show-sql: ${SHOW_SQL:true}
+    properties:
+      hibernate:
+        dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.MySQL5Dialect}
+        jdbc:
+          time_zone: ${HIBERNATE_TIME_ZONE:UTC}
+    hibernate:
+      ddl-auto: ${DDL_AUTO_CONFIGURATION:create-drop}
+

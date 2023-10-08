@@ -1,0 +1,34 @@
+version: "3.2"
+networks:
+  admin:
+    driver: bridge
+services:
+  mysql:
+    hostname: mysql
+    container_name: mysql
+    image: mysql:latest
+    expose:
+      - 3307
+    ports:
+      - "3307:3306"
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vending-machine
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    networks:
+      - admin
+  vending-machine:
+    build:
+      context: .
+      dockerfile: docker/jdk/Dockerfile
+    image: vending-machine
+    container_name: 'vending-machine'
+    restart: always
+    environment:
+      MY_SQL_URL: jdbc:mysql://mysql:3306/vending-machine?useLegacyDatetimeCode=false}
+    ports:
+      - "8080:8080"
+    networks:
+      - admin
