@@ -4,15 +4,11 @@ import static com.example.demo.enumeration.ProductSlotType.ONE;
 import static com.example.demo.enumeration.ProductSlotType.SIXTEEN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.example.demo.controller.InsertMoneyController;
 import com.example.demo.controller.MachineSupportController;
-import com.example.demo.enumeration.BankNoteValue;
-import com.example.demo.enumeration.CoinValue;
-import com.example.demo.enumeration.ProductSlotType;
 import com.example.demo.exception.BadRequestException;
 import com.example.demo.model.dto.InsertNewProductRequest;
 import com.example.demo.model.dto.RemoveProductRequest;
@@ -53,12 +49,16 @@ public class MachineSupportControllerTest extends BaseForIntegrationTests {
 
         var response = machineSupportController.getStatistic().getBody();
 
-        assertEquals(BigDecimal.valueOf(22.50).stripTrailingZeros(),response.getProfitSum().stripTrailingZeros());
-        assertEquals(2,response.getCoinsProfit().size());
-        assertEquals(2,response.getBankNotesProfit().size());
-        assertEquals(15,response.getProductAvailability().size());
-        assertEquals(8,response.getProductAvailability().stream().filter(productAvailabilityResponse -> productAvailabilityResponse.getProductType().equals("MILKA")).findFirst().get().getUnits());
-        assertEquals(9,response.getProductAvailability().stream().filter(productAvailabilityResponse -> productAvailabilityResponse.getProductType().equals("KITKAT")).findFirst().get().getUnits());
+        assertEquals(BigDecimal.valueOf(22.50).stripTrailingZeros(), response.getProfitSum().stripTrailingZeros());
+        assertEquals(2, response.getCoinsProfit().size());
+        assertEquals(2, response.getBankNotesProfit().size());
+        assertEquals(15, response.getProductAvailability().size());
+        assertEquals(8, response.getProductAvailability().stream()
+            .filter(productAvailabilityResponse -> productAvailabilityResponse.getProductType().equals("MILKA")).findFirst().get()
+            .getUnits());
+        assertEquals(9, response.getProductAvailability().stream()
+            .filter(productAvailabilityResponse -> productAvailabilityResponse.getProductType().equals("KITKAT")).findFirst().get()
+            .getUnits());
 
     }
 
@@ -125,7 +125,7 @@ public class MachineSupportControllerTest extends BaseForIntegrationTests {
 
         assertFalse(machine.getBankNotesProfit().isEmpty());
         assertFalse(machine.getCoinsProfit().isEmpty());
-        assertEquals(BigDecimal.valueOf(22.50).stripTrailingZeros(),machine.getProfitSum().stripTrailingZeros());
+        assertEquals(BigDecimal.valueOf(22.50).stripTrailingZeros(), machine.getProfitSum().stripTrailingZeros());
 
         var response = machineSupportController.takeProfit().getBody();
 
@@ -133,7 +133,7 @@ public class MachineSupportControllerTest extends BaseForIntegrationTests {
 
         assertTrue(machine.getBankNotesProfit().isEmpty());
         assertTrue(machine.getCoinsProfit().isEmpty());
-        assertEquals(BigDecimal.ZERO,machine.getProfitSum());
+        assertEquals(BigDecimal.ZERO, machine.getProfitSum());
 
     }
 
@@ -141,7 +141,7 @@ public class MachineSupportControllerTest extends BaseForIntegrationTests {
     @Order(5)
     void shouldThrowNotFoundExceptionWhen3() {
 
-        var request = new InsertNewProductRequest("CHOCOLATE",BigDecimal.valueOf(2.10), ONE);
+        var request = new InsertNewProductRequest("CHOCOLATE", BigDecimal.valueOf(2.10), ONE);
         assertThrows(BadRequestException.class, () -> {
             machineSupportController.addNewProduct(request);
         });
@@ -155,10 +155,10 @@ public class MachineSupportControllerTest extends BaseForIntegrationTests {
     void shouldReturnTheInsertedMoney() {
         var machine = machineRepository.findFirstById(1L).get();
         var expectedProductForSaleSizeBeforeAddingProduct = 15;
-        assertEquals(expectedProductForSaleSizeBeforeAddingProduct,machine.getProductForSale().size());
-        assertEquals(expectedProductForSaleSizeBeforeAddingProduct,machine.getProducts().size());
+        assertEquals(expectedProductForSaleSizeBeforeAddingProduct, machine.getProductForSale().size());
+        assertEquals(expectedProductForSaleSizeBeforeAddingProduct, machine.getProducts().size());
 
-        var request = new InsertNewProductRequest("CHOCOLATE",BigDecimal.valueOf(2.10), SIXTEEN);
+        var request = new InsertNewProductRequest("CHOCOLATE", BigDecimal.valueOf(2.10), SIXTEEN);
         machineSupportController.addNewProduct(request);
         machine = machineRepository.findFirstById(1L).get();
 
@@ -166,11 +166,11 @@ public class MachineSupportControllerTest extends BaseForIntegrationTests {
         var product = machine.getProductForSale().keySet().stream().filter(productEntity -> productEntity.getProductSlot().equals(SIXTEEN))
             .findFirst().get();
 
-        assertEquals(expectedProductForSaleSizeAfterAddingProduct,machine.getProductForSale().size());
-        assertEquals(expectedProductForSaleSizeAfterAddingProduct,machine.getProducts().size());
-        assertEquals("CHOCOLATE",product.getProductType());
-        assertEquals(SIXTEEN,product.getProductSlot());
-        assertEquals(BigDecimal.valueOf(2.10).stripTrailingZeros(),product.getPrice().stripTrailingZeros());
+        assertEquals(expectedProductForSaleSizeAfterAddingProduct, machine.getProductForSale().size());
+        assertEquals(expectedProductForSaleSizeAfterAddingProduct, machine.getProducts().size());
+        assertEquals("CHOCOLATE", product.getProductType());
+        assertEquals(SIXTEEN, product.getProductSlot());
+        assertEquals(BigDecimal.valueOf(2.10).stripTrailingZeros(), product.getPrice().stripTrailingZeros());
 
     }
 
@@ -179,17 +179,17 @@ public class MachineSupportControllerTest extends BaseForIntegrationTests {
     void shouldReturnTheInsertedMoney2() {
         var machine = machineRepository.findFirstById(1L).get();
         var expectedProductForSaleSizeBeforeAddingProduct = 16;
-        assertEquals(expectedProductForSaleSizeBeforeAddingProduct,machine.getProductForSale().size());
-        assertEquals(expectedProductForSaleSizeBeforeAddingProduct,machine.getProducts().size());
+        assertEquals(expectedProductForSaleSizeBeforeAddingProduct, machine.getProductForSale().size());
+        assertEquals(expectedProductForSaleSizeBeforeAddingProduct, machine.getProducts().size());
 
-        var request = new RemoveProductRequest( SIXTEEN);
+        var request = new RemoveProductRequest(SIXTEEN);
         machineSupportController.removeProduct(request);
         machine = machineRepository.findFirstById(1L).get();
 
         var expectedProductForSaleSizeAfterAddingProduct = 15;
 
-        assertEquals(expectedProductForSaleSizeAfterAddingProduct,machine.getProductForSale().size());
-        assertEquals(expectedProductForSaleSizeAfterAddingProduct,machine.getProducts().size());
+        assertEquals(expectedProductForSaleSizeAfterAddingProduct, machine.getProductForSale().size());
+        assertEquals(expectedProductForSaleSizeAfterAddingProduct, machine.getProducts().size());
         assertTrue(machine.getProductForSale().keySet().stream().filter(productEntity -> productEntity.getProductSlot().equals(SIXTEEN))
             .findFirst().isEmpty());
 

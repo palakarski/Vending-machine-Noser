@@ -1,585 +1,585 @@
 {
-	"info": {
-		"_postman_id": "77a48c3c-ef00-4f50-8ddf-f3cebcf0c73a",
-		"name": "Collateral Service",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20377706",
-		"_collection_link": "https://bold-sunset-85699.postman.co/workspace/My-Workspace~b45cb4bd-8bd1-4d29-83ef-d94b48e16a8b/collection/20377706-77a48c3c-ef00-4f50-8ddf-f3cebcf0c73a?action=share&source=collection_link&creator=20377706"
-	},
-	"item": [
-		{
-			"name": "Create",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var responseJson = pm.response.json();\r",
-							"var id = responseJson.id;\r",
-							"\r",
-							"pm.collectionVariables.set(\"id\", id); "
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-message-id",
-						"value": "123123223",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "\r\n{\r\n  \"collateralType\": \"ART_AND_COLLECTIBLES\",\r\n  \"collateralSubType\": \"SCULPTURES\",\r\n  \"description\": \"Venus of Willendorf by unknown author\",\r\n  \"marketValue\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": 500000\r\n  },\r\n  \"liens\": [\r\n    {\r\n      \"pledgeAmount\": 200000,\r\n      \"pledgeCurrencyCode\":\"USD\",\r\n      \"registrationType\": \"Art register\",\r\n      \"createDate\": \"2022-08-10\",\r\n      \"endDate\": \"2023-10-10\",\r\n      \"owners\": [\r\n        {\r\n          \"id\": \"11111\",\r\n          \"role\": \"BORROWER\"\r\n        },\r\n        {\r\n          \"id\": \"22222\",\r\n          \"role\": \"CO-BORROWER\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"owners\": [\r\n    {\r\n      \"id\":\"11111\",\r\n      \"ownershipPercentage\": 75.3\r\n    }, {\r\n      \"id\":\"222\",\r\n      \"ownershipPercentage\": 24\r\n    }\r\n  ],\r\n  \"documents\": [\r\n    {\r\n      \"referenceId\": \"Origination certificate\",\r\n      \"name\": \"Ancient Art Center.pdf\",\r\n      \"mimeType\": \"application/pdf\",\r\n      \"customData\": {\r\n        \"additionalProp1\": {},\r\n        \"additionalProp2\": {},\r\n        \"additionalProp3\": {}\r\n      }\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Read",
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/651ac3cff8545901556efdd6",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"651ac3cff8545901556efdd6"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Collateral",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "\r\n{\r\n  \"collateralType\": \"ART_AND_COLLECTIBLES\",\r\n  \"collateralSubType\": \"SCULPTURES\",\r\n  \"description\": \"Venus of Willendorf by unknown author\",\r\n  \"marketValue\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": 1231232\r\n  },\r\n  \"owners\": [\r\n    {\r\n      \"referenceId\":\"11111\",\r\n      \"ownershipPercentage\": 75.3\r\n    }, {\r\n      \"referenceId\":\"222\",\r\n      \"ownershipPercentage\": 24\r\n    }\r\n  ],\r\n  \"documents\": [\r\n    {\r\n      \"referenceId\": \"Origination certificate\",\r\n      \"name\": \"Ancient Art Center.pdf\",\r\n      \"mimeType\": \"application/pdf\",\r\n      \"customData\": {\r\n        \"additionalProp1\": {},\r\n        \"additionalProp2\": {},\r\n        \"additionalProp3\": {}\r\n      }\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/{{id}}",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"{{id}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/{{id}}",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"{{id}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Liens",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-message-id",
-						"value": "123123",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"pledgeAmount\": 0,\r\n  \"pledgeCurrenyCode\": \"string\",\r\n  \"registrationType\": \"string\",\r\n  \"registrationDate\": \"2023-09-25\",\r\n  \"expiryDate\": \"2023-09-25\",\r\n  \"owners\": [\r\n    {\r\n      \"id\": \"string\",\r\n      \"role\": \"BORROWER\"\r\n    }\r\n  ]\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/{{id}}/liens",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"{{id}}",
-						"liens"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update LienById",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": " {\r\n    \"pledgeAmount\": 333333,\r\n    \"pledgeCurrencyCode\": \"dddddddddddddd\",\r\n    \"registrationType\": \"asdasdasd\",\r\n    \"createDate\": \"2023-04-10\",\r\n    \"endDate\": \"2023-10-10\"\r\n  }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/{{id}}/liens/0dc1e8b6-dda6-4083-844e-d83569dab090",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"{{id}}",
-						"liens",
-						"0dc1e8b6-dda6-4083-844e-d83569dab090"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UpdateOwners",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": ""
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update OwnerById",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "\r\n  {\r\n\r\n    \"ownershipPercentage\": 22\r\n  }\r\n",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/{{id}}/owners/11111",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"{{id}}",
-						"owners",
-						"11111"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Documents",
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "[\r\n  {\r\n    \"referenceId\": \"string\",\r\n    \"name\": \"string\",\r\n    \"mimeType\": \"string\",\r\n    \"customData\": {\r\n      \"additionalProp1\": {},\r\n      \"additionalProp2\": {},\r\n      \"additionalProp3\": {}\r\n    }\r\n  }\r\n]",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/{{id}}/documents",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"{{id}}",
-						"documents"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update DocumentById",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"referenceId\": \"string\",\r\n  \"name\": \"string\",\r\n  \"mimeType\": \"22222\",\r\n  \"customData\": {\r\n    \"aidee\": {\r\n        \"2222\":\"123213\"\r\n    },\r\n    \"additionalProp2\": {\"as\":\"sssss\"},\r\n    \"additionalProp3\": {}\r\n  }\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/{{id}}/documents/string",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"{{id}}",
-						"documents",
-						"string"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update Market Value",
-			"request": {
-				"method": "PATCH",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"currency\": \"string\"\r\n \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/collaterals/{{id}}/market-value",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"collaterals",
-						"{{id}}",
-						"market-value"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Types",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/types",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"types"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Types Copy",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "x-tenant-id",
-						"value": "{{tenantId}}",
-						"type": "text"
-					},
-					{
-						"key": "x-vbo-id",
-						"value": "{{vboId}}",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/v1/query/Collaterals?page=0&size=10",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"v1",
-						"query",
-						"Collaterals"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "0"
-						},
-						{
-							"key": "size",
-							"value": "10"
-						}
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"key": "baseUrl",
-			"value": "http://localhost:8080",
-			"type": "string"
-		},
-		{
-			"key": "baseUrl",
-			"value": "http://dev-e2eloan.v1.tarya.co.il/collateral-service-backend",
-			"type": "string",
-			"disabled": true
-		},
-		{
-			"key": "baseUrl",
-			"value": "",
-			"type": "string",
-			"disabled": true
-		},
-		{
-			"key": "tenantId",
-			"value": "tenant1",
-			"type": "string"
-		},
-		{
-			"key": "vboId",
-			"value": "vbo1",
-			"type": "string"
-		},
-		{
-			"key": "tenantId",
-			"value": "taryafintech-bu",
-			"type": "string",
-			"disabled": true
-		},
-		{
-			"key": "vbo1",
-			"value": "taryafintech-bu",
-			"type": "string",
-			"disabled": true
-		},
-		{
-			"key": "id",
-			"value": "70ff6e56-18bd-464b-a5d9-de6e64eb5831",
-			"type": "string"
-		}
-	]
+  "info": {
+    "_postman_id": "77a48c3c-ef00-4f50-8ddf-f3cebcf0c73a",
+    "name": "Collateral Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "20377706",
+    "_collection_link": "https://bold-sunset-85699.postman.co/workspace/My-Workspace~b45cb4bd-8bd1-4d29-83ef-d94b48e16a8b/collection/20377706-77a48c3c-ef00-4f50-8ddf-f3cebcf0c73a?action=share&source=collection_link&creator=20377706"
+  },
+  "item": [
+    {
+      "name": "Create",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "var responseJson = pm.response.json();\r",
+              "var id = responseJson.id;\r",
+              "\r",
+              "pm.collectionVariables.set(\"id\", id); "
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-message-id",
+            "value": "123123223",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"collateralType\": \"ART_AND_COLLECTIBLES\",\r\n  \"collateralSubType\": \"SCULPTURES\",\r\n  \"description\": \"Venus of Willendorf by unknown author\",\r\n  \"marketValue\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": 500000\r\n  },\r\n  \"liens\": [\r\n    {\r\n      \"pledgeAmount\": 200000,\r\n      \"pledgeCurrencyCode\":\"USD\",\r\n      \"registrationType\": \"Art register\",\r\n      \"createDate\": \"2022-08-10\",\r\n      \"endDate\": \"2023-10-10\",\r\n      \"owners\": [\r\n        {\r\n          \"id\": \"11111\",\r\n          \"role\": \"BORROWER\"\r\n        },\r\n        {\r\n          \"id\": \"22222\",\r\n          \"role\": \"CO-BORROWER\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"owners\": [\r\n    {\r\n      \"id\":\"11111\",\r\n      \"ownershipPercentage\": 75.3\r\n    }, {\r\n      \"id\":\"222\",\r\n      \"ownershipPercentage\": 24\r\n    }\r\n  ],\r\n  \"documents\": [\r\n    {\r\n      \"referenceId\": \"Origination certificate\",\r\n      \"name\": \"Ancient Art Center.pdf\",\r\n      \"mimeType\": \"application/pdf\",\r\n      \"customData\": {\r\n        \"additionalProp1\": {},\r\n        \"additionalProp2\": {},\r\n        \"additionalProp3\": {}\r\n      }\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Read",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/651ac3cff8545901556efdd6",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "651ac3cff8545901556efdd6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Collateral",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n{\r\n  \"collateralType\": \"ART_AND_COLLECTIBLES\",\r\n  \"collateralSubType\": \"SCULPTURES\",\r\n  \"description\": \"Venus of Willendorf by unknown author\",\r\n  \"marketValue\": {\r\n    \"currency\": \"USD\",\r\n    \"value\": 1231232\r\n  },\r\n  \"owners\": [\r\n    {\r\n      \"referenceId\":\"11111\",\r\n      \"ownershipPercentage\": 75.3\r\n    }, {\r\n      \"referenceId\":\"222\",\r\n      \"ownershipPercentage\": 24\r\n    }\r\n  ],\r\n  \"documents\": [\r\n    {\r\n      \"referenceId\": \"Origination certificate\",\r\n      \"name\": \"Ancient Art Center.pdf\",\r\n      \"mimeType\": \"application/pdf\",\r\n      \"customData\": {\r\n        \"additionalProp1\": {},\r\n        \"additionalProp2\": {},\r\n        \"additionalProp3\": {}\r\n      }\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/{{id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "{{id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/{{id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "{{id}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Liens",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-message-id",
+            "value": "123123",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"pledgeAmount\": 0,\r\n  \"pledgeCurrenyCode\": \"string\",\r\n  \"registrationType\": \"string\",\r\n  \"registrationDate\": \"2023-09-25\",\r\n  \"expiryDate\": \"2023-09-25\",\r\n  \"owners\": [\r\n    {\r\n      \"id\": \"string\",\r\n      \"role\": \"BORROWER\"\r\n    }\r\n  ]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/{{id}}/liens",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "{{id}}",
+            "liens"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update LienById",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": " {\r\n    \"pledgeAmount\": 333333,\r\n    \"pledgeCurrencyCode\": \"dddddddddddddd\",\r\n    \"registrationType\": \"asdasdasd\",\r\n    \"createDate\": \"2023-04-10\",\r\n    \"endDate\": \"2023-10-10\"\r\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/{{id}}/liens/0dc1e8b6-dda6-4083-844e-d83569dab090",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "{{id}}",
+            "liens",
+            "0dc1e8b6-dda6-4083-844e-d83569dab090"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "UpdateOwners",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update OwnerById",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "\r\n  {\r\n\r\n    \"ownershipPercentage\": 22\r\n  }\r\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/{{id}}/owners/11111",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "{{id}}",
+            "owners",
+            "11111"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Documents",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "[\r\n  {\r\n    \"referenceId\": \"string\",\r\n    \"name\": \"string\",\r\n    \"mimeType\": \"string\",\r\n    \"customData\": {\r\n      \"additionalProp1\": {},\r\n      \"additionalProp2\": {},\r\n      \"additionalProp3\": {}\r\n    }\r\n  }\r\n]",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/{{id}}/documents",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "{{id}}",
+            "documents"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update DocumentById",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"referenceId\": \"string\",\r\n  \"name\": \"string\",\r\n  \"mimeType\": \"22222\",\r\n  \"customData\": {\r\n    \"aidee\": {\r\n        \"2222\":\"123213\"\r\n    },\r\n    \"additionalProp2\": {\"as\":\"sssss\"},\r\n    \"additionalProp3\": {}\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/{{id}}/documents/string",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "{{id}}",
+            "documents",
+            "string"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Market Value",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"currency\": \"string\"\r\n \r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/collaterals/{{id}}/market-value",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "collaterals",
+            "{{id}}",
+            "market-value"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Types",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/types",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "types"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Types Copy",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "x-tenant-id",
+            "value": "{{tenantId}}",
+            "type": "text"
+          },
+          {
+            "key": "x-vbo-id",
+            "value": "{{vboId}}",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/v1/query/Collaterals?page=0&size=10",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "query",
+            "Collaterals"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "0"
+            },
+            {
+              "key": "size",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "baseUrl",
+      "value": "http://dev-e2eloan.v1.tarya.co.il/collateral-service-backend",
+      "type": "string",
+      "disabled": true
+    },
+    {
+      "key": "baseUrl",
+      "value": "",
+      "type": "string",
+      "disabled": true
+    },
+    {
+      "key": "tenantId",
+      "value": "tenant1",
+      "type": "string"
+    },
+    {
+      "key": "vboId",
+      "value": "vbo1",
+      "type": "string"
+    },
+    {
+      "key": "tenantId",
+      "value": "taryafintech-bu",
+      "type": "string",
+      "disabled": true
+    },
+    {
+      "key": "vbo1",
+      "value": "taryafintech-bu",
+      "type": "string",
+      "disabled": true
+    },
+    {
+      "key": "id",
+      "value": "70ff6e56-18bd-464b-a5d9-de6e64eb5831",
+      "type": "string"
+    }
+  ]
 }

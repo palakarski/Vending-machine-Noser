@@ -1,9 +1,6 @@
 package com.example.demo.integration;
 
-import com.example.demo.repository.MachineRepository;
 import com.example.demo.utils.PostConstructMachine;
-import jakarta.annotation.PostConstruct;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;

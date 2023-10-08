@@ -5,7 +5,7 @@ This repository contains a Vending Machine Service implemented in Java 18 with S
 ## How the Vending Machine Works
 
 - At the start of the application, a vending machine is created with the following initial setup:
-    - One type of coins and banknotes.
+    - Types of coins and banknotes.
     - Coins are filled in the machine to be used for providing change.
     - 15 products are loaded, with 10 of each product type.
 
